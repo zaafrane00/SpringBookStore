@@ -1,11 +1,11 @@
 package com.store.bookstorespring.repositories;
 
-import com.store.bookstorespring.entities.Book;
+import com.store.bookstorespring.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface BookRepository extends JpaRepository<Book,Long> {
-    Optional<Book> findByName(Book name);
+public interface UserRepository extends JpaRepository<User, Long>{
+    Optional<User> findByEmail(String email);
 }
