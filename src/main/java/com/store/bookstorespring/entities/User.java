@@ -3,7 +3,6 @@ package com.store.bookstorespring.entities;
 import com.store.bookstorespring.enums.ERoles;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,7 +35,7 @@ public class User {
     @JoinTable(	name = "users_roles",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
-    public Set<ERoles> roles = new HashSet<ERoles>();
+    public Set<Role> roles = new HashSet<Role>();
 
     public User(String name, String lastname, String email, String password) {
         this.name = name;
@@ -103,11 +102,11 @@ public class User {
         this.password = password;
     }
 
-    public List<String> getRoles() {
-        return roles;
+    public Object[] getRoles() {
+        return  roles.stream().toArray();
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
