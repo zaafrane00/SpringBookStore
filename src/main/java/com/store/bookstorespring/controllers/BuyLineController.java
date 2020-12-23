@@ -56,6 +56,7 @@ public class BuyLineController {
                return new RuntimeException("client not found");
             }));
             newOrder.setAmount(book.getPrice());
+            newOrder.setAmount(buyLine.getBook().getPrice()*buyLine.getQuantity());
             newOrder.setBuydate(new Date().toString());
             newOrder.setBuyLists(buyLineList);
             orderRepository.save(newOrder);
@@ -66,12 +67,12 @@ public class BuyLineController {
             for(int i=0;i<lineList.size();i++){
                 if (lineList.get(i).getBook()!=null && lineList.get(i).getBook() == book) {
                     lineList.get(i).setQuantity(lineList.get(i).getQuantity() + 1);
+                    order.get().setAmount(lineList.get(i).getBook().getPrice()*lineList.get(i).getQuantity());
                     buyLineRepository.save(lineList.get(i));
                     orderRepository.save(order.get());
                     return;
                 }
             }
-
             BuyLine buyLine = new BuyLine(1, book, order.get());
             lineList.add(new BuyLine(buyLine));
             orderRepository.save(order.get());
