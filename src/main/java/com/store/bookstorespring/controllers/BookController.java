@@ -48,7 +48,8 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public Book store(@Validated Book b) {
+    public Book store(@Validated @RequestBody Book b) {
+        System.out.println(b);
             bookRepository.save(b);
             Book book =new Book(b);
             return book;

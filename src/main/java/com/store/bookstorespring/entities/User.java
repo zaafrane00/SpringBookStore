@@ -1,10 +1,7 @@
 package com.store.bookstorespring.entities;
 
-import com.store.bookstorespring.enums.ERoles;
-
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,6 +33,10 @@ public class User {
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     public Set<Role> roles = new HashSet<Role>();
+
+    @OneToMany(cascade=CascadeType.ALL)
+    private Set<Order> orders;
+
 
     public User(String name, String lastname, String email, String password) {
         this.name = name;
@@ -110,6 +111,14 @@ public class User {
         this.roles = roles;
     }
 
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -118,6 +127,9 @@ public class User {
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", status=" + status +
+                ", roles=" + roles +
+                ", orders=" + orders +
                 '}';
     }
 }

@@ -12,7 +12,6 @@ public class Book implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Length(min = 4, max = 15)
-    @Column(name = "title", nullable = false, unique = true, updatable = true)
     private String title;
     @Length(min = 4, max = 15)
     private String auther;
@@ -20,7 +19,7 @@ public class Book implements Serializable {
     @Length(min = 4, max = 4)
     private String release_date;
 
-    @Column(name = "status", updatable = true,columnDefinition = "boolean default true")
+    @Column( updatable = true,columnDefinition = "boolean default true")
     private boolean status=true;
 
     public void setStatus(boolean status) {

@@ -1,11 +1,12 @@
 package com.store.bookstorespring.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Optional;
 
 @Entity
 @Table(name="buylines")
-public class BuyLine {
+public class BuyLine implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,28 +14,26 @@ public class BuyLine {
     private Long id;
 
     private int quantity;
-    private double price;
-    @ManyToOne
+
+    @ManyToOne(cascade=CascadeType.ALL)
     private Book book;
-    @ManyToOne
+
+    @ManyToOne(cascade=CascadeType.ALL)
     private Order order;
 
-    public BuyLine(int quantity, double price, Book book, Order order) {
+    public BuyLine(int quantity, Book book, Order order) {
         this.quantity = quantity;
-        this.price = price;
         this.book = book;
         this.order = order;
     }
 
     public BuyLine(BuyLine b) {
         this.quantity = b.quantity;
-        this.price = b.price;
         this.book = b.book;
         this.order = b.order;
     }
 
     public BuyLine() {
-
     }
 
     public Long getId() {
@@ -51,14 +50,6 @@ public class BuyLine {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public Book getBook() {
@@ -82,7 +73,6 @@ public class BuyLine {
         return "BuyLine{" +
                 "id=" + id +
                 ", quantity=" + quantity +
-                ", price=" + price +
                 ", book=" + book +
                 ", order=" + order +
                 '}';
